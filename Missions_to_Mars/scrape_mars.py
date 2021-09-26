@@ -9,7 +9,7 @@ def scrape():
     browser=init_browser()
     mars_dict={}
 
-    ### NASA Mars News
+    # NASA Mars News
     url = 'https://redplanetscience.com/'
     browser.visit(url)
     html = browser.html
@@ -17,3 +17,13 @@ def scrape():
 
     title = soup.find_all('div', class_='content_title')[0].text
     paragraph = soup.find_all('div', class_='article_teaser_body')[0].text
+
+    # JPL Mars Space Images 
+    nasa_url  =' https://spaceimages-mars.com/'
+    browser.visit(nasa_url)
+
+    html = browser.html
+    soup = bs(html,"html.parser")
+    image_url= soup.find('img', class_='headerimage fade-in')['src'] 
+
+    featured_image_url = nasa_url + image_url
