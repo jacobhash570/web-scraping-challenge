@@ -36,3 +36,21 @@ def scrape():
     facts_df.columns = ["Category", "Measurement"]
     facts_df = facts_df.set_index("Category")
     
+    #Mars Hemisphere
+    url = "https://marshemispheres.com/"
+    browser.visit(url)
+    titles = soup.find_all("h3")
+    for title in titles:
+        browser.click_link_by_partial_text("Hemisphere")
+        browser.back()
+
+    results = soup.find_all("div", class_="description")
+    mars_dict={}
+    hemisphere_image_urls=[]
+    for result in results:
+        link = result.find('a')
+        href = link['href']
+        title = link.find('h3').text
+        url2 = "https://marshemispheres.com/" + href
+        hemisphere_image_urls.append({"title":title,"img_url":url2})
+    
